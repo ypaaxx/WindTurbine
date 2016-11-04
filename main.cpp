@@ -1,8 +1,8 @@
-#include <iostream>
+#include "airfoil.h"
 
 int main()
 {
-    std::cout << "hi!" << endl;
+    Airfoil airfoil = Airfoil();
     return 0;
 }
 

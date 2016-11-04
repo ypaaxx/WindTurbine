@@ -4,5 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_CFLAGS += -std=c99 -lm
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    airfoil.cpp
+
+HEADERS += \
+    airfoil.h
 
