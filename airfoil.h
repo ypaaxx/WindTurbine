@@ -21,6 +21,9 @@ private:
     std::map <float, float> cl_;
     std::map <float, float> cd_;
     std::map <float, float> cm_;
+
+    bool addCoeff (std::map<float,float> &, float, float);
+
 };
 
 #endif // AIRFOIL_H

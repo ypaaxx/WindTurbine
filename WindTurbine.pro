@@ -5,8 +5,10 @@ CONFIG -= qt
 QMAKE_CFLAGS += -std=c99 -lm
 
 SOURCES += main.cpp \
-    airfoil.cpp
+    airfoil.cpp \
+    section.cpp
 
 HEADERS += \
-    airfoil.h
+    airfoil.h \
+    section.h
 

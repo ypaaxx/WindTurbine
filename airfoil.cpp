@@ -5,24 +5,30 @@ Airfoil::Airfoil()
     std::cout << "hi, new airfoil" << std::endl;
 }
 
+/* Конструктор загружающий данные из файла */
 Airfoil::Airfoil(std::string nameFile)
 {
     std::cout << nameFile << std::endl;
 }
 
+/* Общий метод добавления */
+bool Airfoil::addCoeff(std::map<float,float> &map, float alfa, float coeff){
+    return map.insert(std::pair<float, float>(alfa, coeff)).second;
+}
+
 void Airfoil::addCl(float alfa, float cl)
 {
-    cl_[alfa]=cl;
+    if(!addCoeff(cl_, alfa, cl)) std::cerr << "Значение уже определено" << std::endl;
 }
 
 void Airfoil::addCd(float alfa, float cd)
 {
-    cd_[alfa]=cd;
+    addCoeff(cl_, alfa, cd);
 }
 
 void Airfoil::addCm(float alfa, float cm)
 {
-    cm_[alfa]=cm;
+    addCoeff(cl_, alfa, cm);
 }
 
 void Airfoil::print()
