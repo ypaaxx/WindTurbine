@@ -2,8 +2,7 @@
 
 int main()
 {
-    Airfoil airfoil = Airfoil("fuck off");
-    airfoil.print();
+    Airfoil airfoil = Airfoil();
     return 0;
 }
 

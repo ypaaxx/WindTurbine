@@ -2,7 +2,12 @@
 
 Airfoil::Airfoil()
 {
-    std::cout << "hi, new airfoil" << std::endl;
+    std::cout << "hi! I am the new airfoil!" << std::endl;
+}
+
+Airfoil::~Airfoil()
+{
+    std::cout << "Oh, no! I'm daing! Wha-a-a-y?" << std::endl;
 }
 
 /* Конструктор загружающий данные из файла */
@@ -11,29 +16,13 @@ Airfoil::Airfoil(std::string nameFile)
     std::cout << nameFile << std::endl;
 }
 
-/* Общий метод добавления */
-bool Airfoil::addCoeff(std::map<float,float> &map, float alfa, float coeff){
-    return map.insert(std::pair<float, float>(alfa, coeff)).second;
+/* Добавления новой точки во внутренний класс*/
+void Airfoil::AirfoilData::addPoint(float alpha, float cl, float cd, float cm)
+{
+    alpha_.push_back(alpha);
+    cl_.push_back(cl);
+    cd_.push_back(cd);
+    cm_.push_back(cm);
 }
 
-void Airfoil::addCl(float alfa, float cl)
-{
-    if(!addCoeff(cl_, alfa, cl)) std::cerr << "Значение уже определено" << std::endl;
-}
 
-void Airfoil::addCd(float alfa, float cd)
-{
-    addCoeff(cl_, alfa, cd);
-}
-
-void Airfoil::addCm(float alfa, float cm)
-{
-    addCoeff(cl_, alfa, cm);
-}
-
-void Airfoil::print()
-{
-    for (std::map<float,float>::iterator i = cl_.begin(); i != cl_.end(); ++i){
-        std::cout << i->first << " " << i->second << std::endl;
-    }
-}
