@@ -1,24 +1,29 @@
-#ifndef FLUID_H
-#define FLUID_H
+#ifndef AIR_H
+#define AIR_H
 
 
-class Fluid
+class Air
 {
 public:
-    Fluid();
+    Air();
+    Air(float);
 
     void setDensity(float);
     void setViscosity(float);
     void setTemperature(float);
+    void setPressure(float);
+
 
     float getDensity();
     float getViscosity();
     float getTemperature();
+    float getPressure();
 
 private:
     float density_;
     float viscosity_;
     float temperature_;
+    float pressure_;
 };
 
-#endif // FLUID_H
+#endif // AIR_H

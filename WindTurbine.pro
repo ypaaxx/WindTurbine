@@ -7,10 +7,10 @@ QMAKE_CFLAGS += -std=c++11 -lm
 SOURCES += main.cpp \
     airfoil.cpp \
     section.cpp \
-    fluid.cpp
+    air.cpp
 
 HEADERS += \
     airfoil.h \
     section.h \
-    fluid.h
+    air.h
 
