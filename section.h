@@ -7,8 +7,8 @@ class Section : public Airfoil
 public:
     Section();
 private:
-    float r_;
-    float b_;
+    float r_; // Радиус
+    float b_; // Хорда
 
 };
 
