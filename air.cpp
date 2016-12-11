@@ -9,53 +9,32 @@ Air::Air()
     setTemperature(288.15);//(K)
     setDensity(1.225);//(kg/m^3)
     setViscosity(1.47e-5);//(m^2/s)
+    setPressure(101325);//(Pa)
+}
+
+/** Параметры воздуха от температуры и давления */
+Air::Air(float const temperature, float const pressure)
+{
+    setPressure(pressure);//(Pa)
+    setTemperature(temperature);
+    setDensity(getPressure()/temperature/GAS_CONST);
+    float C = 120;//(K) Постоянная Сазерланда
+    float T_0 = 291.15;//(K) Контрольная температура
+    float Mu_0 = 18.27e-6;//(Pa*s) Контрольная динамическая вязкость
+    setViscosity(Mu_0 * (T_0 + C) / (temperature + C) * pow(temperature/T_0, 1.5) / getDensity());
 }
 
 /** Вязкость и плотность определяются температурой */
 Air::Air(float const temperature)
 {
-    float R = 287;// (J/kg/K)
-    float pressure_ = 101325;// (K)
+    if ((temperature < 200) || (temperature > 2500)) // чёт не работает
+        throw 1;//Bad_air();
+
     setTemperature(temperature);
-    setDensity(pressure_/temperature/R);
+    setPressure(101325);//(Pa)
+    setDensity(getPressure()/temperature/GAS_CONST);
     float C = 120;//(K) Постоянная Сазерланда
     float T_0 = 291.15;//(K) Контрольная температура
-    float Mu_0 = 18.27e6;//(Pa*s) Контрольная вязкость
-    setViscosity(Mu_0 * (T_0 + C)/(temperature + C)*pow(temperature/T_0, 1.5)/getDensity());
-}
-
-/** Выставление плотности*/
-void Air::setDensity(float density)
-{
-    density_ = density;
-}
-
-/** Выставление кинематической вязкости */
-void Air::setViscosity(float viscosity)
-{
-    viscosity_ = viscosity;
-}
-
-/** Выставление температуры */
-void Air::setTemperature(float temperature)
-{
-    temperature_ = temperature;
-}
-
-/** Выдача плотности */
-float Air::getDensity()
-{
-    return density_;
-}
-
-/** Выдача вязкости */
-float Air::getViscosity()
-{
-    return viscosity_;
-}
-
-/** Выдача температуры */
-float Air::getTemperature()
-{
-    return temperature_;
+    float Mu_0 = 18.27e-6;//(Pa*s) Контрольная динамическая вязкость
+    setViscosity(Mu_0 * (T_0 + C) / (temperature + C) * pow(temperature/T_0, 1.5) / getDensity());
 }
