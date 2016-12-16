@@ -6,8 +6,6 @@ int main()
 {
     Air air = Air(273.15-60);
     Airfoil expero = Airfoil();
-    std::cout << expero.getName() << std::endl;
-
 
     //Airfoil airfoil = Airfoil("/home/fura/www/index.html");
     std::cout << air.getTemperature() << std::endl;

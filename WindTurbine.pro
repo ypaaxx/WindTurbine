@@ -8,11 +8,13 @@ SOURCES += main.cpp \
     airfoil.cpp \
     section.cpp \
     air.cpp \
-    airfoildata.cpp
+    airfoildata.cpp \
+    sectiondata.cpp
 
 HEADERS += \
     airfoil.h \
     section.h \
     air.h \
-    airfoildata.h
+    airfoildata.h \
+    sectiondata.h
 

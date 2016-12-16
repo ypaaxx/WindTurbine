@@ -28,6 +28,7 @@ public:
 
 private:
     float const GAS_CONST = 287; // (J/kg/K)
+    float const K = 1.4; 
     float density_;
     float viscosity_;
     float temperature_;
