@@ -7,6 +7,9 @@ class SectionData
 public:
     SectionData();
 private:
+    float n;
+    float r_;
+
     float a_;
     float a2_;
 

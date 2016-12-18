@@ -4,7 +4,7 @@
 
 Airfoil::Airfoil()
 {
-    name_ = "Expero";
+
 
 }
 

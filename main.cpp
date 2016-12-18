@@ -4,13 +4,12 @@
 
 int main()
 {
-    Air air = Air(273.15-60);
-    Airfoil expero = Airfoil();
+    //Air air = Air(273.15-60);
+    AirfoilData s822;
 
-    //Airfoil airfoil = Airfoil("/home/fura/www/index.html");
-    std::cout << air.getTemperature() << std::endl;
-    std::cout << air.getDensity() << std::endl;
-    std::cout << air.getViscosity() << std::endl;
+    std::cout << s822.getCl(0.5)<< std::endl;
+    std::cout << s822.getCd(0.5)<< std::endl;
+
     return 0;
 }
 
