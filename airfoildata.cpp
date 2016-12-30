@@ -35,6 +35,7 @@ void AirfoilData::addPoint(float alpha, float cl, float cd, float cm)
     cm_.push_back(cm);
 }
 
+/** Вычисление коэффициентов интерполяции */
 void AirfoilData::makeInterpolant()
 {
     alg_alpha_.setcontent(alpha_.size(), &alpha_[0]);
