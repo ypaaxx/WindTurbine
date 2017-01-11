@@ -3,7 +3,7 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_CXXFLAGS += -std=c++11
-QMAKE_CFLAGS += -std=c++11 -lm
+QMAKE_CFLAGS += -lm
 LIBS += -Lalglib-directory -lalglib
 
 SOURCES += main.cpp \

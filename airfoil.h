@@ -33,9 +33,11 @@ private:
     int defaultReynolds;
 
     /* Для каждого Re */
+    std::vector <int> numerReynolds;
     std::vector <AirfoilData> airfoilDataRe;
 
     /* Для каждого М, ссылки на то что в по Re*/
+    std::vector <double> numerMach;
     std::vector <AirfoilData> airfoilDataM;
 };
 

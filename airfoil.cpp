@@ -24,7 +24,7 @@ Airfoil::~Airfoil()
 void Airfoil::addPoint(float reynolds, float mach, float alpha, float cl, float cd, float cm)
 {
     auto result = std::find(airfoilDataRe.begin(), airfoilDataRe.end(), reynolds);
-    if(std::find(airfoilDataRe.begin(), airfoilDataRe.end(), reynolds));
+    //if(std::find(airfoilDataRe.begin(), airfoilDataRe.end(), reynolds));
 /*
     if (airfoilDataRe.find(reynolds) != airfoilDataRe.end()) {
         airfoilDataRe.at(reynolds).addPoint(alpha, cl, cd, cm);
@@ -37,8 +37,8 @@ void Airfoil::addPoint(float reynolds, float mach, float alpha, float cl, float 
 
         //airfoilDataRe.insert(std::pair <float, AirfoilData> (reynolds, tmpAirfoilData));
         //airfoilDataM.insert(std::pair <float, AirfoilData&> (reynolds, tmpAirfoilData));
-*/
     }
+*/
 }
 
 /** Выдача коэффициента подьемной силы Cl */
