@@ -5,6 +5,7 @@
  * по фиксированным числам Рейнольдса и Маха */
 AirfoilData::AirfoilData()
 {
+    /*
     // S822
     reynolds_ = 600000;
     mach_ = 0;
@@ -22,6 +23,7 @@ AirfoilData::AirfoilData()
     addPoint(8, 1.044, 0.0189, -0.0809);
     makeInterpolant();
     inintiateMinMax();
+    */
 
 }
 
@@ -32,6 +34,11 @@ void AirfoilData::addPoint(float alpha, float cl, float cd, float cm)
     cl_.push_back(cl);
     cd_.push_back(cd);
     cm_.push_back(cm);
+}
+
+void AirfoilData::addPoint(float alpha, float cl, float cd)
+{
+    addPoint(alpha, cl, cd, 0.3);
 }
 
 /** Вычисление коэффициентов интерполяции */

@@ -13,8 +13,11 @@ public:
 
     void setReynolds(int const reynolds) { reynolds_ = reynolds;}
     void setMach(float const mach) { mach_ = mach;}
+    float getReynolds() const { return reynolds_; }
+    float getMach() const { return mach_; }
 
-    void addPoint(float, float, float, float);
+    void addPoint(float alpha, float cl, float cd, float cm);
+    void addPoint(float alpha, float cl, float cd);
 
     void makeInterpolant();
 
@@ -22,22 +25,19 @@ public:
     float getCd(float);
     float getCm(float);
 
-    float getReynolds() const { return reynolds_; }
-    float getMach() const { return mach_; }
-
     void inintiateMinMax();
 
 private:
     int reynolds_; //число Рейнольдса
     float mach_; //число Маха
 
-    double maxAlpha;
-    double minAlpha;
-
     std::vector<double> alpha_;
     std::vector<double> cl_;
     std::vector<double> cd_;
     std::vector<double> cm_;
+
+    double maxAlpha;
+    double minAlpha;
 
     alglib::real_1d_array alg_alpha_, alg_cl_, alg_cd_, alg_cm_; // массивы указателей
     alglib::spline1dinterpolant sl_, sd_, sm_; // коэффициенты интерполяции

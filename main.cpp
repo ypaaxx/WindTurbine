@@ -4,10 +4,19 @@
 
 int main()
 {
-    //Air air = Air(273.15-60);
-    AirfoilData s822;
-    for(double i = -3; i < 10; i++)
-    std::cout << i << " " << s822.getCl(i) << std::endl;
+    Air air = Air(273.15-60);
+    Airfoil espero01;
+    Airfoil espero02;
+    double alpha[] = {-5, -2.5, 0, 2.5, 5, 7.5, 10, 12.5, 15, 17.5};
+    double cy_01[] = {0, 17, 35, 55, 73, 85.5, 89.5, 95*10/12, 88*10/12, 84*10/12};
+    double u_01[] = {0.1, 0.085, 0.034, 0.016, 0.015, 0.03, 0.1, 0.18, 0.3, 0.4};
+    double cy_02[] = {36, 56, 75, 90, 102, 105, 110, 129*10/12, 126*10/12, 122*10/12};
+    double u_02[] = {0.03, 0.018, 0.01, 0.01, 0.02, 0.03, 0.06, 0.1, 0.13, 0.16};
+
+    for(int i = 0; i < 10; i++){
+        espero01.addPoint(alpha[i], cy_01[i]*0.012, u_01[i]*cy_01[i]*0.012);
+        espero02.addPoint(alpha[i], cy_02[i]*0.012, u_02[i]*cy_02[i]*0.012);
+    }
 
     return 0;
 }

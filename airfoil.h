@@ -18,27 +18,32 @@ public:
     ~Airfoil();
 
     //void setName(char *name) { name_ = name;}
+    //char getName()  {return *name_;}
     void setThickness(float thickness) { thickness_ = thickness;}
-    void addPoint(float, float, float, float, float, float);
+    void setDefaultReynolds (int reynolds) { defaultReynolds_ = reynolds;}
+    void setDefaultData (AirfoilData &defaultData) { defaultData_ = &defaultData;}
+
+    void addPoint(float reynolds, float mach, float alpha, float cl, float cd, float cm);
+    void addPoint(float alpha, float cl, float cd);
 
     float getCl(float, float, float) const;
     float getCl(float, float) const;
     float getCl(float) const;
-    char getName()  {return *name_;}
 
     float getSome(float) const;
 private:
     char name_[30]; // Название профиля
     float thickness_; // Максимальная толщина профиля 
-    int defaultReynolds;
+    int defaultReynolds_;
+    AirfoilData* defaultData_;
 
     /* Для каждого Re */
-    std::vector <int> numerReynolds;
-    std::vector <AirfoilData> airfoilDataRe;
+    std::vector <int> numerReynolds_;
+    std::vector <AirfoilData*> airfoilDataRe_;
 
     /* Для каждого М, ссылки на то что в по Re*/
-    std::vector <double> numerMach;
-    std::vector <AirfoilData> airfoilDataM;
+    std::vector <double> numerMach_;
+    std::vector <AirfoilData*> airfoilDataM_;
 };
 
 #endif // AIRFOIL_H
