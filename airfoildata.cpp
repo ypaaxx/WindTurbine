@@ -1,6 +1,5 @@
 #include "airfoildata.h"
-
-#include <iostream>
+#include "algorithm"
 
 /** Cодержащий точки характеристики профиля
  * по фиксированным числам Рейнольдса и Маха */
@@ -21,8 +20,8 @@ AirfoilData::AirfoilData()
     addPoint(6, 0.911, 0.0092, -0.0924);
     addPoint(7, 0.964, 0.0167, -0.0836);
     addPoint(8, 1.044, 0.0189, -0.0809);
-
     makeInterpolant();
+    inintiateMinMax();
 
 }
 
@@ -35,6 +34,7 @@ void AirfoilData::addPoint(float alpha, float cl, float cd, float cm)
     cm_.push_back(cm);
 }
 
+/** Вычисление коэффициентов интерполяции */
 void AirfoilData::makeInterpolant()
 {
     alg_alpha_.setcontent(alpha_.size(), &alpha_[0]);
@@ -42,9 +42,17 @@ void AirfoilData::makeInterpolant()
     alg_cd_.setcontent(cd_.size(), &cd_[0]);
     alg_cm_.setcontent(cm_.size(), &cm_[0]);
 
-    alglib::spline1dbuildlinear(alg_alpha_, alg_cl_, sl_);
-    alglib::spline1dbuildlinear(alg_alpha_, alg_cd_, sd_);
-    alglib::spline1dbuildlinear(alg_alpha_, alg_cm_, sm_);
+    alglib::spline1dbuildcubic(alg_alpha_, alg_cl_, sl_);
+    alglib::spline1dbuildcubic(alg_alpha_, alg_cd_, sd_);
+    alglib::spline1dbuildcubic(alg_alpha_, alg_cm_, sm_);
+}
+
+void AirfoilData::inintiateMinMax()
+{
+    /*
+    minAlpha = std::min_element(alpha_[0], alpha_.);
+    maxAlpha = std::max_element(alpha_.begin(), alpha_.end());
+    */
 }
 
 /** Получение коэффициента подьемной силы Cl по углу атаки */
@@ -52,11 +60,14 @@ float AirfoilData::getCl(const float alpha)
 {
     return alglib::spline1dcalc(sl_, alpha);
 }
+
 float AirfoilData::getCd(const float alpha)
 {
     return alglib::spline1dcalc(sd_, alpha);
 }
+
 float AirfoilData::getCm(const float alpha)
 {
     return alglib::spline1dcalc(sm_, alpha);
 }
+

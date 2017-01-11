@@ -2,8 +2,9 @@
 #define AIRFOIL_H
 
 #include <string>
-#include <map>
+#include <vector>
 #include <airfoildata.h>
+#include <mysql_connection.h>
 
 /**
  * Этот класс описывает всё что есть по аэродинамическому профилю
@@ -23,18 +24,19 @@ public:
     float getCl(float, float, float) const;
     float getCl(float, float) const;
     float getCl(float) const;
-    char* getName() const {return name_;}
+    char getName()  {return *name_;}
 
     float getSome(float) const;
 private:
-    char* name_; // Название профиля
+    char name_[30]; // Название профиля
     float thickness_; // Максимальная толщина профиля 
+    int defaultReynolds;
 
     /* Для каждого Re */
-    std::map <int, AirfoilData> airfoilDataRe;
+    std::vector <AirfoilData> airfoilDataRe;
 
     /* Для каждого М, ссылки на то что в по Re*/
-    std::map <int, AirfoilData&> airfoilDataM;
+    std::vector <AirfoilData> airfoilDataM;
 };
 
 #endif // AIRFOIL_H

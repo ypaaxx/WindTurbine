@@ -1,27 +1,17 @@
 #include "airfoil.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 Airfoil::Airfoil()
 {
-
+    //name_ = "s822";
 
 }
 
 Airfoil::Airfoil(const char* file)
 {
-    std::ifstream input;
-    input.open(file, std::fstream::in);
-
-    if (input.is_open()) std::cout << file << " is open" <<  std::endl;
-    else {
-        std::cerr << file << " can't open" <<  std::endl;
-    }
-
-    char tmp[100];
-    while (input.getline(tmp, 100)){
-        std::cout << tmp << std::endl;
-    }
+    //Оставим пока так
 }
 
 /** Чего толку подписывать деструктор */
@@ -33,6 +23,9 @@ Airfoil::~Airfoil()
 /** Добавление точки характеристики */
 void Airfoil::addPoint(float reynolds, float mach, float alpha, float cl, float cd, float cm)
 {
+    auto result = std::find(airfoilDataRe.begin(), airfoilDataRe.end(), reynolds);
+    if(std::find(airfoilDataRe.begin(), airfoilDataRe.end(), reynolds));
+/*
     if (airfoilDataRe.find(reynolds) != airfoilDataRe.end()) {
         airfoilDataRe.at(reynolds).addPoint(alpha, cl, cd, cm);
     } else {
@@ -42,15 +35,28 @@ void Airfoil::addPoint(float reynolds, float mach, float alpha, float cl, float 
 
         tmpAirfoilData.addPoint(alpha, cl, cd, cm);
 
-        airfoilDataRe.insert(std::pair <float, AirfoilData> (reynolds, tmpAirfoilData));
+        //airfoilDataRe.insert(std::pair <float, AirfoilData> (reynolds, tmpAirfoilData));
         //airfoilDataM.insert(std::pair <float, AirfoilData&> (reynolds, tmpAirfoilData));
+*/
     }
 }
 
 /** Выдача коэффициента подьемной силы Cl */
 float Airfoil::getCl(float reynolds, float mach, float alpha) const
 {
+    // Это всё блаж, мечты, мы махом пока принебрежем
     return 0;
 }
 
+float Airfoil::getCl(float reynolds, float alpha) const
+{
+
+    return 0;
+}
+
+float Airfoil::getCl(float alpha) const
+{
+
+    return 0;
+}
 
