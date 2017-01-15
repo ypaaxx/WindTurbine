@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <airfoildata.h>
-#include <mysql_connection.h>
+//#include <mysql_connection.h>
 
 /**
  * Этот класс описывает всё что есть по аэродинамическому профилю

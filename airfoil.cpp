@@ -55,9 +55,9 @@ void Airfoil::addPoint(float alpha, float cl, float cd)
 {
     if ( airfoilDataRe_.empty()){
         //Создание рейнольдса по умолчанию, если изначально список пуст
-        AirfoilData tmpAirfoilData;// = new AirfoilData;
-        airfoilDataRe_.push_back(&tmpAirfoilData);
-        setDefaultData(tmpAirfoilData);
+        AirfoilData *tmpAirfoilData = new AirfoilData;
+        airfoilDataRe_.push_back(tmpAirfoilData);
+        setDefaultData(*tmpAirfoilData);
     }
     defaultData_->addPoint(alpha, cl, cd);
 }
