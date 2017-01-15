@@ -25,10 +25,13 @@ public:
 
     void addPoint(float reynolds, float mach, float alpha, float cl, float cd, float cm);
     void addPoint(float alpha, float cl, float cd);
+    void initiate();
 
     float getCl(float, float, float) const;
     float getCl(float, float) const;
     float getCl(float) const;
+
+    float getCd(float) const;
 
     float getSome(float) const;
 private:

@@ -5,8 +5,12 @@
 int main()
 {
     Air air = Air(273.15-60);
+
     Airfoil espero01;
+    espero01.setThickness(0.1);
     Airfoil espero02;
+    espero02.setThickness(0.2);
+
     double alpha[] = {-5, -2.5, 0, 2.5, 5, 7.5, 10, 12.5, 15, 17.5};
     double cy_01[] = {0, 17, 35, 55, 73, 85.5, 89.5, 95*10/12, 88*10/12, 84*10/12};
     double u_01[] = {0.1, 0.085, 0.034, 0.016, 0.015, 0.03, 0.1, 0.18, 0.3, 0.4};
@@ -17,6 +21,13 @@ int main()
         espero01.addPoint(alpha[i], cy_01[i]*0.012, u_01[i]*cy_01[i]*0.012);
         espero02.addPoint(alpha[i], cy_02[i]*0.012, u_02[i]*cy_02[i]*0.012);
     }
+    espero01.initiate();
+    espero02.initiate();
+
+    for (int i = -5; i <= 15; i+=1){
+        std::cout << i << " " << espero01.getCl(i) << " " << espero01.getCd(i) << std::endl;
+    }
+
 
     return 0;
 }
