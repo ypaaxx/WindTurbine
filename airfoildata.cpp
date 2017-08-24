@@ -25,6 +25,11 @@ AirfoilData::AirfoilData()
     inintiateMinMax();
     */
 
+
+}
+AirfoilData::AirfoilData(std::string file)
+{
+
 }
 
 /** Добавления новой точки данных*/

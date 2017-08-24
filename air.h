@@ -2,6 +2,7 @@
 #define AIR_H
 
 /** Сие класс есть модель сухого воздуха */
+
 class Air
 {
 public:

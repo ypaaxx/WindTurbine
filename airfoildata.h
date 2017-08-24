@@ -1,13 +1,20 @@
 #ifndef AIRFOILDATA_H
 #define AIRFOILDATA_H
 
+/* Класс содержит продувку профиля на определенных числах Маха и Рейнольдса */
+
 #include <vector>
+#include <string>
+#include <fstream>
 #include <libalglib/interpolation.h>
 
 class AirfoilData
 {
 public:
+    /* Какойто бестолковый стандартный профиль */
     AirfoilData();
+    /* По имени файла из которого всё будет выдёргиваться */
+    AirfoilData(std::string file);
     AirfoilData(float);
     AirfoilData(float, float);
 

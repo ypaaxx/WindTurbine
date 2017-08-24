@@ -6,6 +6,7 @@ class SectionData
 {
 public:
     SectionData();
+    SectionData(float);
 private:
     float n;
     float r_;
