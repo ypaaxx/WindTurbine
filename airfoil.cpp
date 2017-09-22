@@ -53,20 +53,13 @@ void Airfoil::addPoint(float reynolds, float mach, float alpha, float cl, float 
 
 void Airfoil::addPoint(float alpha, float cl, float cd)
 {
+    //Создание рейнольдса по умолчанию, если изначально список пуст
     if ( airfoilDataRe_.empty()){
-        //Создание рейнольдса по умолчанию, если изначально список пуст
         AirfoilData *tmpAirfoilData = new AirfoilData;
         airfoilDataRe_.push_back(tmpAirfoilData);
         setDefaultData(*tmpAirfoilData);
     }
     defaultData_->addPoint(alpha, cl, cd);
-}
-
-void Airfoil::initiate()
-{
-    for (AirfoilData* data: airfoilDataRe_){
-        data->makeInterpolant();
-    }
 }
 
 /** Выдача коэффициента подьемной силы Cl */
@@ -78,7 +71,6 @@ float Airfoil::getCl(float reynolds, float mach, float alpha) const
 
 float Airfoil::getCl(float reynolds, float alpha) const
 {
-    //,kf;
     return 0;
 }
 

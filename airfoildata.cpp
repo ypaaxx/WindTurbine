@@ -5,81 +5,98 @@
  * по фиксированным числам Рейнольдса и Маха */
 AirfoilData::AirfoilData()
 {
-    /*
-    // S822
-    reynolds_ = 600000;
-    mach_ = 0;
-    addPoint(-3, -0.04, 0.0076, -0.0746);
-    addPoint(-2, 0.068, 0.0072, -0.0772);
-    addPoint(-1, 0.176, 0.0072, -0.0798);
-    addPoint(0, 0.284, 0.0073, -0.0823);
-    addPoint(1, 0.391, 0.0075, -0.0845);
-    addPoint(2, 0.497, 0.0077, -0.0866);
-    addPoint(3, 0.602, 0.0080, -0.0885);
-    addPoint(4, 0.707, 0.0083, -0.0903);
-    addPoint(5, 0.811, 0.0087, -0.0917);
-    addPoint(6, 0.911, 0.0092, -0.0924);
-    addPoint(7, 0.964, 0.0167, -0.0836);
-    addPoint(8, 1.044, 0.0189, -0.0809);
-    makeInterpolant();
-    inintiateMinMax();
-    */
-
+    // Инициация векторов продувки
+    cl_ = new std::vector<Point*>;
+    cd_ = new std::vector<Point*>;
+    cm_ = new std::vector<Point*>;
 
 }
-AirfoilData::AirfoilData(std::string file)
+AirfoilData::AirfoilData(std::string fileName)
 {
+    std::ifstream input;
+    input.open(fileName);
 
+    std::string bufer;
+/*  //Кю!
+    //Игнорирование первых 12 строк
+    for (int i = 0; i < 12; i++)
+        input.getline(bufer, 100);
+
+    input.getline(bufer, 100);
+    float a;
+    a << bufer;
+    */
 }
 
 /** Добавления новой точки данных*/
 void AirfoilData::addPoint(float alpha, float cl, float cd, float cm)
 {
-    alpha_.push_back(alpha);
-    cl_.push_back(cl);
-    cd_.push_back(cd);
-    cm_.push_back(cm);
+    addCl(alpha, cl);
+    addCd(alpha, cd);
+    addCm(alpha, cm);
 }
 
 void AirfoilData::addPoint(float alpha, float cl, float cd)
 {
-    addPoint(alpha, cl, cd, 0.3);
+    addCl(alpha, cl);
+    addCd(alpha, cd);
 }
 
-/** Вычисление коэффициентов интерполяции */
-void AirfoilData::makeInterpolant()
+void AirfoilData::addCl(float alpha, float cl)
 {
-    alg_alpha_.setcontent(alpha_.size(), &alpha_[0]);
-    alg_cl_.setcontent(cl_.size(), &cl_[0]);
-    alg_cd_.setcontent(cd_.size(), &cd_[0]);
-    alg_cm_.setcontent(cm_.size(), &cm_[0]);
-
-    alglib::spline1dbuildcubic(alg_alpha_, alg_cl_, sl_);
-    alglib::spline1dbuildcubic(alg_alpha_, alg_cd_, sd_);
-    alglib::spline1dbuildcubic(alg_alpha_, alg_cm_, sm_);
+    cl_->push_back(new Point(alpha, cl));
+    std::sort(cl_->begin(), cl_->end(), Point::comparationX);
 }
 
-void AirfoilData::inintiateMinMax()
+void AirfoilData::addCd(float alpha, float cd)
 {
-    /*
-    minAlpha = std::min_element(alpha_[0], alpha_.);
-    maxAlpha = std::max_element(alpha_.begin(), alpha_.end());
-    */
+    cd_->push_back(new Point(alpha, cd));
+    std::sort(cd_->begin(), cd_->end(), Point::comparationX);
+}
+
+void AirfoilData::addCm(float alpha, float cm)
+{
+    cm_->push_back(new Point(alpha, cm));
+    std::sort(cm_->begin(), cm_->end(), Point::comparationX);
+}
+
+double AirfoilData::getSome(std::vector<Point *> *some, const double alpha) const
+{
+    for (auto i = some->cbegin(); i != some->cend(); ++i){
+        Point *point = *i;
+        // При точном совпадении - возращение точного числа
+        if(point->x() == alpha)
+            return point->y();
+        // Если достигнут конец списка - выбрасываем 0
+        if(point == some->back())
+            throw 0;
+        // В найденом промежутке интерполируем
+        if (point->x() < alpha )
+            return Point::lineInterpolation(point, *(i+1), alpha);
+    }
+    return 0;
 }
 
 /** Получение коэффициента подьемной силы Cl по углу атаки */
 float AirfoilData::getCl(const float alpha)
 {
-    return alglib::spline1dcalc(sl_, alpha);
+    double cl=0;
+    try{
+        cl = getSome(cl_, alpha);
+    } catch(int ex) {
+        std::cout << "Мать их! " << cl << " " << alpha << std::endl;
+    }
+
+    return cl;
 }
 
 float AirfoilData::getCd(const float alpha)
 {
-    return alglib::spline1dcalc(sd_, alpha);
+    return getSome(cd_, alpha);
 }
 
 float AirfoilData::getCm(const float alpha)
 {
-    return alglib::spline1dcalc(sm_, alpha);
+    return getSome(cm_, alpha);
 }
 

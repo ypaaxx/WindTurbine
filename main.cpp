@@ -21,8 +21,6 @@ int main()
         espero01.addPoint(alpha[i], cy_01[i]*0.012, u_01[i]*cy_01[i]*0.012);
         espero02.addPoint(alpha[i], cy_02[i]*0.012, u_02[i]*cy_02[i]*0.012);
     }
-    espero01.initiate();
-    espero02.initiate();
 
     for (int i = -5; i <= 15; i+=1){
         std::cout << i << " " << espero01.getCl(i) << " " << espero01.getCd(i) << std::endl;

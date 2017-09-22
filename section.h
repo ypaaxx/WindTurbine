@@ -10,14 +10,15 @@ class Section
 {
 public:
     Section();
+    SectionData *glouert(const Air &air, float wind, float rotationSpeed);
 private:
     int numerBlades_; // Число лопастей
     Airfoil airfoil_; // Профиль
-    float alpha_; // (rad) Угол установки
+    float tetta_; // (rad) Угол установки
     float r_; // Радиус относительный
     float b_; // Хорда относительная
 };
 
-SectionData *glouert(const Section& section, const Air& air);
+SectionData *glouert(const Section &section, const Air &air, float wind, float rotationSpeed);
 
 #endif // SECTION_H
