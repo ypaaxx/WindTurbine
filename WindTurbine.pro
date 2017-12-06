@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     air.cpp \
     airfoildata.cpp \
     sectiondata.cpp \
-    mymath.cpp
+    mymath.cpp \
+    rotor.cpp
 
 HEADERS += \
     airfoil.h \
@@ -20,6 +21,7 @@ HEADERS += \
     air.h \
     airfoildata.h \
     sectiondata.h \
-    mymath.h
+    mymath.h \
+    rotor.h
 
 

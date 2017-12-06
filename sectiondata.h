@@ -7,6 +7,13 @@ class SectionData
 public:
     SectionData();
     SectionData(float);
+
+    void setA(float a){ a_ = a; };
+    void setA2(float a2){ a2_ = a2; };
+    void setFi(float fi){ fi_ = fi; };
+    void set_dMdr(float dM){ dM_dr= dM; };
+    void set_dTdr(float dT){ dT_dr= dT; };
+
 private:
 
     float a_;  //Коэф. торможения

@@ -9,12 +9,12 @@ Airfoil::Airfoil()
 
 }
 
+/** Создаёт обьект по данным из файла какого-то там */
 Airfoil::Airfoil(const char* file)
 {
     //Оставим пока так
 }
 
-/** Чего толку подписывать деструктор */
 Airfoil::~Airfoil()
 {
     std::cout << "Oh, no! I'm dying! Wha-a-a-y?" << std::endl;

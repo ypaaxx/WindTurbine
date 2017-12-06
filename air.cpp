@@ -17,11 +17,11 @@ Air::Air(float const temperature, float const pressure)
 {
     setPressure(pressure);//(Pa)
     setTemperature(temperature);
-    setDensity(getPressure()/temperature/GAS_CONST);
+    setDensity(Air::pressure()/temperature/GAS_CONST);
     float C = 120;//(K) Постоянная Сазерланда
     float T_0 = 291.15;//(K) Контрольная температура
     float Mu_0 = 18.27e-6;//(Pa*s) Контрольная динамическая вязкость
-    setViscosity(Mu_0 * (T_0 + C) / (temperature + C) * pow(temperature/T_0, 1.5) / getDensity());
+    setViscosity(Mu_0 * (T_0 + C) / (temperature + C) * pow(temperature/T_0, 1.5) / density());
 }
 
 /** Вязкость и плотность определяются температурой */
@@ -32,9 +32,9 @@ Air::Air(float const temperature)
 
     setTemperature(temperature);
     setPressure(101325);//(Pa)
-    setDensity(getPressure()/temperature/GAS_CONST);
+    setDensity(pressure()/temperature/GAS_CONST);
     float C = 120;//(K) Постоянная Сазерланда
     float T_0 = 291.15;//(K) Контрольная температура
     float Mu_0 = 18.27e-6;//(Pa*s) Контрольная динамическая вязкость
-    setViscosity(Mu_0 * (T_0 + C) / (temperature + C) * pow(temperature/T_0, 1.5) / getDensity());
+    setViscosity(Mu_0 * (T_0 + C) / (temperature + C) * pow(temperature/T_0, 1.5) / density());
 }

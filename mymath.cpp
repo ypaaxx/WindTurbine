@@ -1,6 +1,8 @@
 #include "mymath.h"
 
-/* То что я сам напихал, всякие интерполяции */
+/**
+ * То что я сам напихал, всякие интерполяции
+*/
 
 double Point::lineInterpolation( const Point *one, const Point *two, const double x)
 {

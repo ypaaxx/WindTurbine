@@ -17,15 +17,15 @@ public:
     void setPressure(float const pressure) { pressure_ = pressure;}
 
     /** Возращение параметров */
-    inline float getDensity() const { return density_;}
-    inline float getViscosity() const { return viscosity_;}
-    inline float getTemperature() const { return temperature_;}
-    inline float getPressure() const { return pressure_;}
+    inline float density() const { return density_;}
+    inline float viscosity() const { return viscosity_;}
+    inline float temperature() const { return temperature_;}
+    inline float pressure() const { return pressure_;}
 
-    inline float rho() const { return getDensity();}
-    inline float v() const { return getViscosity();}
-    inline float T() const { return getTemperature();}
-    inline float P() const { return getPressure();}
+    inline float rho() const { return density();}
+    inline float v() const { return viscosity();}
+    inline float T() const { return temperature();}
+    inline float P() const { return pressure();}
 
 private:
     float const GAS_CONST = 287; // (J/kg/K)
