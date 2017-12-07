@@ -8,20 +8,21 @@ LIBS +=
 
 SOURCES += main.cpp \
     airfoil.cpp \
-    section.cpp \
     air.cpp \
     airfoildata.cpp \
-    sectiondata.cpp \
     mymath.cpp \
-    rotor.cpp
+    rotor.cpp \
+    section.cpp \
+    sectiondata.cpp \
+
 
 HEADERS += \
     airfoil.h \
-    section.h \
     air.h \
     airfoildata.h \
-    sectiondata.h \
     mymath.h \
-    rotor.h
+    rotor.h \
+    sectiondata.h \
+    section.h
 
 

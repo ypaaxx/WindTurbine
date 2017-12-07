@@ -1,23 +1,8 @@
 #include "rotor.h"
 
-Rotor::Rotor()
-{
-
-}
-
-int Rotor::getNumerBlades() const
-{
-    return numerBlades;
-}
-
-void Rotor::setNumerBlades(int value)
-{
-    numerBlades = value;
-}
-
-
-
-void Rotor::setR_tip(float value)
-{
-    R_tip = value;
+Rotor::Rotor(int numberOfBlades, float R_tip, float R_hub){
+    numberBlades = numberOfBlades;
+    rTip = R_tip;
+    rHub = R_hub;
+    blade = new std::vector <Section*>;
 }

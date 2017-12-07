@@ -2,27 +2,32 @@
 #define ROTOR_H
 
 #include <vector>
-#include "section.h"
+
+/**
+ * Обьединяет несколько элементарых лопастей в вектор
+ */
+
+class Section;
 
 class Rotor
 {
 public:
-    Rotor();
-    int getNumerBlades() const;
-    void setNumerBlades(int value);
+    Rotor(int numberOfBlades, float R_tip, float R_hub);
 
-    float getR_tip() const
-    {
-        return R_tip;
+    void addSection(Section* newSection){
+        blade->push_back(newSection);
     }
-    void setR_tip(float value);
+    int getNumerBlades() {return numberBlades;}
+
+    float getR_tip() const{return rTip;}
 
 private:
-    int numerBlades;
-    float R_tip;
-    float R_hub;
+    int numberBlades;
+    float rTip;
+    float rHub;
 
-    std::vector <void*> *blade;
+    std::vector <Section*> *blade;
 };
+
 
 #endif // ROTOR_H

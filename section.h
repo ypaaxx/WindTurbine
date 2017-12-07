@@ -1,5 +1,6 @@
 #ifndef SECTION_H
 #define SECTION_H
+
 #include "airfoil.h"
 #include "air.h"
 #define _USE_MATH_DEFINES
@@ -14,7 +15,7 @@
 class Section
 {
 public:
-    Section(Rotor *rotor, float r, float tetta, float b, Airfoil *airfoil);
+    Section(Rotor* rotor, float r, float tetta, float b, Airfoil *airfoil);
     SectionData *glouert(const Air &air, float wind, float rpm);
 
 private:
@@ -25,8 +26,7 @@ private:
     float b_; // Хорда относительная
 
     Rotor *rotor_;
-};
 
-SectionData *glouert(const Section &section, const Air &air, float wind, float rotationSpeed);
+};
 
 #endif // SECTION_H

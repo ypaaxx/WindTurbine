@@ -1,5 +1,8 @@
 #include "airfoil.h"
 #include "air.h"
+#include "rotor.h"
+#include "section.h"
+
 #include <iostream>
 
 int main()
@@ -22,8 +25,14 @@ int main()
         espero02.addPoint(alpha[i], cy_02[i]*0.012, u_02[i]*cy_02[i]*0.012);
     }
 
-    for (int i = -5; i <= 15; i+=1){
-        std::cout << i << " " << espero01.getCl(i) << " " << espero01.getCd(i) << std::endl;
+    Rotor rotor(2, 0.5, 0.1) ;
+    std::vector <SectionData*> data;
+    for(float r_=0.2; r_ < 1; r_+=0.1)
+    {
+        Section *section = new Section(&rotor, r_, 50-r_*47,0.070-r_*40, &espero02);
+        rotor.addSection(section);
+        data.push_back(section->glouert(air, 10, 600));
+        std::cout << data.back()->get_dM() << std::endl;
     }
 
 

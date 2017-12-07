@@ -25,8 +25,13 @@ SectionData* Section::glouert(const Air &air, float windSpeed, float rpm)
     for( int i = 0; i<10; i++){
         fi = atan( (1-a)/(1+a_)/lambda );
         float attack = fi - tetta_;
-        float cy = airfoil_->getCl(attack);
-        float mu = airfoil_->getCd(attack) / cy;
+        float cy, mu;
+        try{
+            cy = airfoil_->getCl(attack);
+            mu = airfoil_->getCd(attack) / cy;
+        }catch(...){
+            std::cout << "Нет данных для угла аттаки:" << attack << std::endl;
+        }
         fPr = M_PI_2*acos( exp(-B/2*(1-r_)/r_/sin(fi)) );
 
         a = 1 / ( 4*fPr*pow(sin(fi), 2) / (sigma*cy*(cos(fi) + mu*sin(fi))) + 1  );
