@@ -1,13 +1,12 @@
 #include "airfoil.h"
 #include "air.h"
 #include "rotor.h"
-#include "section.h"
 
 #include <iostream>
 
 int main()
 {
-    Air air = Air(273.15-60);
+    Air air = Air(-30);
 
     Airfoil espero01;
     espero01.setThickness(0.1);
@@ -25,17 +24,13 @@ int main()
         espero02.addPoint(alpha[i], cy_02[i]*0.012, u_02[i]*cy_02[i]*0.012);
     }
 
-    Rotor rotor(2, 0.5, 0.1) ;
-    std::vector <SectionData*> data;
-    for(float r_=0.2; r_ < 1; r_+=0.1)
-    {
-        Section *section = new Section(&rotor, r_, 50-r_*47,0.070-r_*40, &espero02);
-        rotor.addSection(section);
-        data.push_back(section->glouert(air, 10, 600));
-        std::cout << data.back()->get_dM() << std::endl;
-    }
+    Condition cond(&air, 10, 800);
+    Rotor rotor(2, 0.5, 0.2) ;
 
+    Section sec(&rotor, &espero01, 5.0, 0.8);
+    SectionData *data = sec.glouert(cond);
 
     return 0;
 }
+
 

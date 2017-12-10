@@ -1,7 +1,7 @@
 #ifndef SECTIONDATA_H
 #define SECTIONDATA_H
 
-
+/*
 class SectionData
 {
 public:
@@ -25,5 +25,5 @@ private:
     float Re_;
 
 };
-
+*/
 #endif // SECTIONDATA_H

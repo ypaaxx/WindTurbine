@@ -19,24 +19,28 @@ public:
 
     //void setName(char *name) { name_ = name;}
     //char getName()  {return *name_;}
-    void setThickness(float thickness) { thickness_ = thickness;}
+    void setThickness(double thickness) { thickness_ = thickness;}
     void setDefaultReynolds (int reynolds) { defaultReynolds_ = reynolds;}
     void setDefaultData (AirfoilData &defaultData) { defaultData_ = &defaultData;}
 
-    void addPoint(float reynolds, float mach, float alpha, float cl, float cd, float cm);
-    void addPoint(float alpha, float cl, float cd);
+    void addPoint(double reynolds, double mach, double alpha, double cl, double cd, double cm);
+    void addPoint(double alpha, double cl, double cd);
 
-    float getCl(float, float, float) const;
-    float getCl(float, float) const;
-    float getCl(float) const;
+    double getCl(double Re, double M, double alpha) const;
+    double getCl(double alpha, double Re) const;
+    double getCl(double alpha) const;
 
-    float getCd(float) const;
+    double getCd(double Re, double M, double alpha) const;
+    double getCd(double alpha, double Re) const;
+    double getCd(double alpha) const;
 
-    float getSome(float) const;
+    AirfoilData *data(double Re = 0);
+
+    double getSome(double alpha) const;
 private:
     char name_[30]; // Название профиля
-    float thickness_; // Максимальная толщина профиля 
-    int defaultReynolds_;
+    double thickness_; // Максимальная толщина профиля
+    static double defaultReynolds_;
     AirfoilData* defaultData_;
 
     /* Для каждого Re */

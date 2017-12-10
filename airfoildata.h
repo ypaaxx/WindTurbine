@@ -9,7 +9,8 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include <mymath.h>
+
+#include "mymath.h"
 
 class AirfoilData
 {
@@ -18,40 +19,51 @@ public:
     AirfoilData();
     /* По имени файла из которого всё будет выдёргиваться */
     AirfoilData(std::string fileName);
-    AirfoilData(float);
-    AirfoilData(float, float);
+    AirfoilData(double);
+    AirfoilData(double, double);
 
     void setReynolds(int const reynolds) { reynolds_ = reynolds;}
-    void setMach(float const mach) { mach_ = mach;}
-    float getReynolds() const { return reynolds_; }
-    float getMach() const { return mach_; }
+    void setMach(double const mach) { mach_ = mach;}
+    double getReynolds() const { return reynolds_; }
+    double getMach() const { return mach_; }
 
-    void addPoint(float alpha, float cl, float cd, float cm);
-    void addPoint(float alpha, float cl, float cd);
-    void addCl(float alpha, float cl);
-    void addCd(float alpha, float cd);
-    void addCm(float alpha, float cm);
+    void addPoint(double alpha, double cl, double cd, double cm);
+    void addPoint(double alpha, double cl, double cd);
+    void addCl(double alpha, double cl);
+    void addCd(double alpha, double cd);
+    void addCm(double alpha, double cm);
 
     void makeInterpolant();
 
-    float getCl(const float);
-    float getCd(const float);
-    float getCm(const float);
+    double getCl(const double alpha);
+    double getCd(const double alpha);
+    double getCm(const double alpha);
+
+    double getMu(double alpha);
+    double getMaxMuAlpha(){
+        if (initiatedMinMax == false) {
+            inintiateMinMax();
+        }
+        return maxMuAlpha;
+    }
 
     void inintiateMinMax();
 
 private:
     int reynolds_; //число Рейнольдса
-    float mach_; //число Маха
+    double mach_; //число Маха
 
     std::vector<Point*> *cl_;
     std::vector<Point*> *cd_;
     std::vector<Point*> *cm_;
+    double getSome(std::vector<Point*> *some, const double alpha);
 
     double maxAlpha;
     double minAlpha;
+    double maxMuAlpha;
 
-    double getSome(std::vector<Point*> *some, const double alpha) const;
+    bool initiatedMinMax = 0;
+
 };
 
 AirfoilData reynoldsInterpolatedData(const AirfoilData firstData, const AirfoilData secondData, double reynolds);

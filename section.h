@@ -11,7 +11,7 @@
 /**
  * Элемент лопасти
  */
-
+/*
 class Section
 {
 public:
@@ -28,5 +28,5 @@ private:
     Rotor *rotor_;
 
 };
-
+*/
 #endif // SECTION_H

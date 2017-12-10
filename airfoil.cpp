@@ -17,11 +17,11 @@ Airfoil::Airfoil(const char* file)
 
 Airfoil::~Airfoil()
 {
-    std::cout << "Oh, no! I'm dying! Wha-a-a-y?" << std::endl;
+
 }
 
 /** Добавление точки характеристики */
-void Airfoil::addPoint(float reynolds, float mach, float alpha, float cl, float cd, float cm)
+void Airfoil::addPoint(double reynolds, double mach, double alpha, double cl, double cd, double cm)
 {
 /*
     auto result = std::find(numerReynolds.begin(), numerReynolds.end(), reynolds);
@@ -45,13 +45,13 @@ void Airfoil::addPoint(float reynolds, float mach, float alpha, float cl, float 
 
         tmpAirfoilData.addPoint(alpha, cl, cd, cm);
 
-        //airfoilDataRe.insert(std::pair <float, AirfoilData> (reynolds, tmpAirfoilData));
-        //airfoilDataM.insert(std::pair <float, AirfoilData&> (reynolds, tmpAirfoilData));
+        //airfoilDataRe.insert(std::pair <double, AirfoilData> (reynolds, tmpAirfoilData));
+        //airfoilDataM.insert(std::pair <double, AirfoilData&> (reynolds, tmpAirfoilData));
     }
 */
 }
 
-void Airfoil::addPoint(float alpha, float cl, float cd)
+void Airfoil::addPoint(double alpha, double cl, double cd)
 {
     //Создание рейнольдса по умолчанию, если изначально список пуст
     if ( airfoilDataRe_.empty()){
@@ -63,24 +63,30 @@ void Airfoil::addPoint(float alpha, float cl, float cd)
 }
 
 /** Выдача коэффициента подьемной силы Cl */
-float Airfoil::getCl(float reynolds, float mach, float alpha) const
+double Airfoil::getCl(double Re, double M, double alpha) const
 {
     // Это всё блаж, мечты, мы махом пока принебрежем
     return 0;
 }
 
-float Airfoil::getCl(float reynolds, float alpha) const
+double Airfoil::getCl(double Re, double alpha) const
 {
     return 0;
 }
 
-float Airfoil::getCl(float alpha) const
+double Airfoil::getCl(double alpha) const
 {
     return defaultData_->getCl(alpha);
 }
 
-float Airfoil::getCd(float alpha) const
+double Airfoil::getCd(double alpha) const
 {
     return defaultData_->getCd(alpha);
+}
+
+AirfoilData *Airfoil::data(double Re)
+{
+    if (Re == 0)
+        return defaultData_;
 }
 

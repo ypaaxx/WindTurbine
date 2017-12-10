@@ -1,6 +1,9 @@
 #ifndef MYMATH_H
 #define MYMATH_H
 
+#define _USE_MATH_DEFINES
+#include "math.h"
+
 //using namespace mymath;
 
 class Point
@@ -27,7 +30,12 @@ public:
     // Сравнивают У или Х двух точек, если у первой больше - да
     static bool comparationY(const Point *lower, const Point *greater);
     static bool comparationX(const Point *lower, const Point *greater);
+    static double maxFunction(double (*function)(double x)  , double a, double b);
 };
+
+double root(double (*function)(double x)  , double x0, double x1);
+double maxFunction(double (*function)(double x)  , double a, double b);
+
 
 
 

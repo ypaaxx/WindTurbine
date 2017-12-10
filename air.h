@@ -7,33 +7,33 @@ class Air
 {
 public:
     Air();
-    Air(float);
-    Air(float, float);
+    Air(double);
+    Air(double, double);
 
     /** Выставление параметров */
-    void setDensity(float const density) { density_ = density;}
-    void setViscosity(float const viscosity) { viscosity_ = viscosity;}
-    void setTemperature(float const temperature) { temperature_ = temperature;}
-    void setPressure(float const pressure) { pressure_ = pressure;}
+    void setDensity(double const density) { density_ = density;}
+    void setViscosity(double const viscosity) { viscosity_ = viscosity;}
+    void setTemperatureC(double const temperatureC) { temperature_ = 273.15 + temperatureC;}
+    void setPressure(double const pressure) { pressure_ = pressure;}
 
     /** Возращение параметров */
-    inline float density() const { return density_;}
-    inline float viscosity() const { return viscosity_;}
-    inline float temperature() const { return temperature_;}
-    inline float pressure() const { return pressure_;}
+    inline double density() const { return density_;}
+    inline double viscosity() const { return viscosity_;}
+    inline double temperature() const { return temperature_;}
+    inline double pressure() const { return pressure_;}
 
-    inline float rho() const { return density();}
-    inline float v() const { return viscosity();}
-    inline float T() const { return temperature();}
-    inline float P() const { return pressure();}
+    inline double rho() const { return density();}
+    inline double v() const { return viscosity();}
+    inline double T() const { return temperature();}
+    inline double P() const { return pressure();}
 
 private:
-    float const GAS_CONST = 287; // (J/kg/K)
-    float const K = 1.4; 
-    float density_;
-    float viscosity_;
-    float temperature_;
-    float pressure_;
+    double const GAS_CONST = 287; // (J/kg/K)
+    double const K = 1.4;
+    double density_;
+    double viscosity_;
+    double temperature_;
+    double pressure_;
 };
 
 #endif // AIR_H
