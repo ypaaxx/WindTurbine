@@ -6,9 +6,13 @@
 AirfoilData::AirfoilData()
 {
     // Инициация векторов продувки
-    cl_ = new std::vector<Point*>;
-    cd_ = new std::vector<Point*>;
-    cm_ = new std::vector<Point*>;
+
+    cl_ = new std::vector<Point*> ;
+
+    cd_ = new std::vector<Point*> ;
+
+    cm_ = new std::vector<Point*> ;
+
 
 }
 AirfoilData::AirfoilData(std::string fileName)

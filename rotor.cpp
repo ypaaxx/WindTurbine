@@ -31,7 +31,7 @@ Section::Section(Rotor *rotor, Airfoil *airfoil, double lambda, double r)
     airfoil_ = airfoil;
     rotor_ = rotor;
     r_=r;
-    float B = rotor->getNumerBlades();
+    double B = rotor->getNumerBlades();
 
     double attack = airfoil->data()->getMaxMuAlpha();
 
@@ -41,7 +41,7 @@ Section::Section(Rotor *rotor, Airfoil *airfoil, double lambda, double r)
     auto fi = [&](double a){return atan( (1-a)/(1+a2(a))/lambda );};
     auto fPr = [&](double a){return M_PI_2*acos( exp(-B/2*(1-r_)/r_/sin(fi(a))) );};
 
-    auto targetForOpt = [&](float a){return (1-a)*a2(a)*fPr(a);};
+    auto targetForOpt = [&](double a){return (1-a)*a2(a)*fPr(a);};
 
     //Поиск оптимальных а
     //Метод золотого сечения
