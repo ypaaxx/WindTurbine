@@ -7,6 +7,7 @@ AirfoilData::AirfoilData()
 {
     // Инициация векторов продувки
 
+
     cl_ = new std::vector<Point*> ;
 
     cd_ = new std::vector<Point*> ;
@@ -76,19 +77,21 @@ void AirfoilData::addCm(double alpha, double cm)
 
 double AirfoilData::getSome(std::vector<Point *> *some, const double alpha)
 {
-    for (auto i = some->cbegin(); i != some->cend(); ++i){
-        Point *point = *i;
+   if ((alpha < minAlpha) || (alpha > maxAlpha))
+        throw 0;
+   Point *lastPoint;
+   for (Point *point: *some){
         // При точном совпадении - возращение точного числа
-        if(point->x() == alpha)
+        if( point->x() == alpha)
             return point->y();
-        // Если достигнут конец списка - выбрасываем 0
-        if(point == some->back())
-            throw 0;
         // В найденом промежутке интерполируем
-        if (point->x() < alpha )
-            return Point::lineInterpolation(point, *(i+1), alpha);
+        if (point!=some->at(0))
+            lastPoint = point - 1;
+        else
+            lastPoint = point;
+        if (point->x() > alpha )
+            return Point::lineInterpolation(point, lastPoint, alpha);
     }
-    return 0;
 }
 
 /** Получение коэффициента подьемной силы Cl по углу атаки */
@@ -110,10 +113,10 @@ double AirfoilData::getCm(const double alpha)
 double AirfoilData::getMu(double alpha){return getCl(alpha)/getCd(alpha);}
 
 void AirfoilData::inintiateMinMax(){
-    maxAlpha = cl_->front()->x();
-    if(cd_->front()->x() < maxAlpha) maxAlpha = cd_->front()->x();
-    minAlpha = cl_->back()->x();
-    if(cd_->back()->x() > minAlpha) minAlpha = cd_->back()->x();
+    minAlpha = cl_->front()->x();
+    if(cd_->front()->x() < minAlpha) minAlpha = cd_->front()->x();
+    maxAlpha = cl_->back()->x();
+    if(cd_->back()->x() > maxAlpha) maxAlpha = cd_->back()->x();
 
     //Это почему то не работает. Нельзя ссылаться на функцию-член
     //maxFunction( &AirfoilData::getMu, minAlpha, maxAlpha);
