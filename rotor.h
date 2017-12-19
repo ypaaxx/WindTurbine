@@ -69,7 +69,7 @@ public:
     Section(Rotor* rotor, double r, double tetta, double b, Airfoil *airfoil);
     Section(Rotor *rotor, Airfoil *airfoil, double lambda, double r);
     SectionData *glouert(const Air *air, double windSpeed, double rpm);
-    SectionData *glouert(const Condition &cond) { return glouert(cond.air(), cond.windSpeed(), cond.rpm());};
+    SectionData *glouert(const Condition &cond) { return glouert(cond.air(), cond.windSpeed(), cond.rpm());}
 
     void setChord(double chord_rel){ b_ = chord_rel;}
     void setTetta(double angleRad){ tetta_ = angleRad;}

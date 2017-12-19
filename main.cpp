@@ -6,7 +6,7 @@
 
 int main()
 {
-    Air air = Air(-30);
+    Air air = Air(15);
 
     Airfoil plateBlade;
     plateBlade.setThickness(0.1);
@@ -39,25 +39,16 @@ int main()
         plateBlade.addPoint(alpha[i], cy[i], cd[i]);
     }
 
-
-
     Condition cond(&air, 10, 800);
-    Rotor rotor(2, 0.5, 0.2) ;
+    Rotor rotor(2, 0.5, 0.17);
 
-    Section sec(&rotor, &plateBlade, 5.0, 0.8);
-    for(double i=0; i<=15; i+= 2.5){
-        std::cout << i << " "
-                  << plateBlade.getCl(i)<< " "
-                  << plateBlade.getCd(i)
-                  << std::endl;
-    }
-
-    std::cout << plateBlade.data()->getMaxMuAlpha()
-              << " "
-              << plateBlade.data()->getCl(7.5)
-              << std::endl;
+    Section sec(&rotor, &plateBlade, 4.2, 0.8);
+    sec.setChord(0.042);
+    sec.setTetta(6*M_PI/180);
 
     SectionData *data = sec.glouert(cond);
+    std::cout << data->a() << std::endl;
+
     return 0;
 }
 

@@ -31,6 +31,7 @@ Section::Section(Rotor *rotor, Airfoil *airfoil, double lambda, double r)
     airfoil_ = airfoil;
     rotor_ = rotor;
     r_=r;
+    lambda *= r;
     double B = rotor->getNumerBlades();
 
     double attack = airfoil->data()->getMaxMuAlpha();
