@@ -95,6 +95,7 @@ SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
     double fPr;
     double fi;
     double attack;
+    double cy, mu;
 
     double lambda = (rpm*2*M_PI/60)*R_tip*r_/windSpeed ; //Сюда добавить радиус колеса
     int B = rotor_->getNumerBlades();
@@ -103,8 +104,8 @@ SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
     //Решение нелинейной системы итерациями
     for( int i = 0; i<10; i++){
         fi = atan( (1-a)/(1+a2_)/lambda );
-        attack = fi - (tetta_)*M_PI/180;
-        double cy, mu;
+        attack = fi*180/M_PI - tetta_;
+
         try{
             cy = airfoil_->getCl(attack);
             mu = airfoil_->getCd(attack) / cy;
@@ -119,7 +120,7 @@ SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
 
     SectionData* data = new SectionData();
 
-    double Re = air->viscosity()*b_*windSpeed/air->density();
+    double Re = air->density()*b_*windSpeed/air->viscosity();
     double dMdR= 4*M_PI*air->density()*pow(r_*R_tip*windSpeed, 2)*lambda*a2_*(1-a)*fPr;
     double dTdR= 4*M_PI*air->density()*r_*R_tip*pow(windSpeed, 2)*a*(1-a)*fPr;
 

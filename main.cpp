@@ -43,10 +43,11 @@ int main()
     Rotor rotor(2, 0.5, 0.17);
 
     Section sec(&rotor, &plateBlade, 4.2, 0.8);
-    sec.setChord(0.042);
-    sec.setTetta(6*M_PI/180);
+    Section sec2(&rotor, 0.8, 6, 0.042, &plateBlade);
+    //sec.setChord(0.042);
+    //sec.setTetta(6*M_PI/180);
 
-    SectionData *data = sec.glouert(cond);
+    SectionData *data = sec2.glouert(cond);
     std::cout << data->a() << std::endl;
 
     return 0;
