@@ -22,7 +22,7 @@ Section::Section(Rotor *rotor, double r, double tetta, double b, Airfoil *airfoi
     rotor_ = rotor;
     r_ = r;
     tetta_ = tetta;
-    b_ = b;
+    b_ = b/rotor_->getR_tip();
     airfoil_ = airfoil;
 }
 
@@ -90,8 +90,9 @@ Section::Section(Rotor *rotor, Airfoil *airfoil, double lambda, double r)
 SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
 {
     double R_tip = rotor_->getR_tip();
-    double a = 1.0/3.0;
+    double a = 1./3.;
     double a2_= 0;
+    double a2__=0;
     double fPr;
     double fi;
     double attack;
@@ -102,7 +103,7 @@ SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
     double sigma = B * b_ / 2 / M_PI / r_;
 
     //Решение нелинейной системы итерациями
-    for( int i = 0; i<10; i++){
+    for( int i = 0; i<50; i++){
         fi = atan( (1-a)/(1+a2_)/lambda );
         attack = fi*180/M_PI - tetta_;
 
@@ -112,10 +113,11 @@ SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
         }catch(...){
             std::cout << "Нет данных для угла аттаки:" << attack << std::endl;
         }
-        fPr = M_PI_2*acos( exp(-B/2*(1-r_)/r_/sin(fi)) );
+        fPr = acos( exp(-B/2*(1-r_)/r_/sin(fi)) )/M_PI_2;
 
         a = 1 / ( 4*fPr*pow(sin(fi), 2) / (sigma*cy*(cos(fi) + mu*sin(fi))) + 1  );
         a2_ = 1 / ( 4*fPr*sin(fi)*cos(fi) / (sigma*cy*(sin(fi) - mu*cos(fi))) + 1  );
+        a2__ = (-(lambda + mu) + sqrt(pow(lambda + mu, 2)-4*a*(a+mu*lambda-1)))/2/lambda;
     }
 
     SectionData* data = new SectionData();

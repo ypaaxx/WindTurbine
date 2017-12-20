@@ -79,18 +79,15 @@ double AirfoilData::getSome(std::vector<Point *> *some, const double alpha)
 {
    if ((alpha < minAlpha) || (alpha > maxAlpha))
         throw 0;
-   Point *lastPoint;
-   for (Point *point: *some){
+   Point *lastPoint = some->at(0);
+   for (auto point: *some){
         // При точном совпадении - возращение точного числа
         if( point->x() == alpha)
             return point->y();
         // В найденом промежутке интерполируем
-        if (point!=some->at(0))
-            lastPoint = point - 1;
-        else
-            lastPoint = point;
         if (point->x() > alpha )
             return Point::lineInterpolation(point, lastPoint, alpha);
+        lastPoint = point;
     }
 }
 

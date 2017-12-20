@@ -43,7 +43,7 @@ int main()
     Rotor rotor(2, 0.5, 0.17);
 
     Section sec(&rotor, &plateBlade, 4.2, 0.8);
-    Section sec2(&rotor, 0.8, 6, 0.042, &plateBlade);
+    Section sec2(&rotor, 0.6, 11.217, 0.049458, &plateBlade);
     //sec.setChord(0.042);
     //sec.setTetta(6*M_PI/180);
 
