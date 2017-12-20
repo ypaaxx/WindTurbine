@@ -40,7 +40,7 @@ Section::Section(Rotor *rotor, Airfoil *airfoil, double lambda, double r)
 
     auto a2 = [&](double a){return (-(lambda + mu) + sqrt( pow(lambda + mu, 2) - 4*a*(a+mu*lambda-1) ))/2/lambda;};
     auto fi = [&](double a){return atan( (1-a)/(1+a2(a))/lambda );};
-    auto fPr = [&](double a){return M_PI_2*acos( exp(-B/2*(1-r_)/r_/sin(fi(a))) );};
+    auto fPr = [&](double a){return acos( exp(-B/2*(1-r_)/r_/sin(fi(a))) )/M_PI_2;};
 
     auto targetForOpt = [&](double a){return (1-a)*a2(a)*fPr(a);};
 
@@ -79,11 +79,11 @@ Section::Section(Rotor *rotor, Airfoil *airfoil, double lambda, double r)
 
    double a_opt = (Start.x() + Finish.x())/2;
    double a2_opt = a2(a_opt);
-   double sigma_opt = 4*fPr(a_opt)*pow(sin(fi(a_opt)),2)*a_opt/
-           (airfoil_->getCl(attack)*cos(fi(a_opt)) + airfoil_->getCd(attack)*sin(fi(a_opt)))/(1-a_opt);
+   double sigma_opt = 4*fPr(a_opt)*pow(sin(fi(a_opt)),2)*a_opt/(1-a_opt)/
+           (airfoil_->getCl(attack)*cos(fi(a_opt)) + airfoil_->getCd(attack)*sin(fi(a_opt)));
    double h_opt = 2*M_PI*r_*sigma_opt/B;
 
-   setChord(h_opt);
+   setChord(h_opt*rotor_->getR_tip());
    setTetta(fi(a_opt) - attack*M_PI/180);
 }
 
@@ -92,7 +92,6 @@ SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
     double R_tip = rotor_->getR_tip();
     double a = 1./3.;
     double a2_= 0;
-    double a2__=0;
     double fPr;
     double fi;
     double attack;
@@ -117,7 +116,7 @@ SectionData* Section::glouert(const Air *air, double windSpeed, double rpm)
 
         a = 1 / ( 4*fPr*pow(sin(fi), 2) / (sigma*cy*(cos(fi) + mu*sin(fi))) + 1  );
         a2_ = 1 / ( 4*fPr*sin(fi)*cos(fi) / (sigma*cy*(sin(fi) - mu*cos(fi))) + 1  );
-        a2__ = (-(lambda + mu) + sqrt(pow(lambda + mu, 2)-4*a*(a+mu*lambda-1)))/2/lambda;
+        //a2__ = (-(lambda + mu) + sqrt(pow(lambda + mu, 2)-4*a*(a+mu*lambda-1)))/2/lambda;
     }
 
     SectionData* data = new SectionData();
